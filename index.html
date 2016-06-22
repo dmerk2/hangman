@@ -1,17 +1,21 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Hangman</title>
+	<title>Music Hangman</title>
 	<!-- Linking CSS to HTML -->
 	<link rel="stylesheet" type="text/css" href="assets/style.css">
 	<!--So it can be neatly viewed on phones-->
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<!-- Linking Javascript -->
-	<script type="text/javascript"></script>
 	<!-- linking jquery to html -->
     <script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
+    <!-- Linking Javascript -->
+	<script type="text/javascript" src='assets/js.js'></script>
 </head>
 <body>
-
+<div class='container'>
+	<div>Wins: <span id="wins"></span></div>		
+	<div>Losses: <span id="losses"></span></div>			
+	<div>Guesses so far:	<span id='GuessesSoFar'></span></div>	
+</div>
 </body>
 </html>
