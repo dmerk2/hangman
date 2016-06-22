@@ -1,21 +1,33 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Music Hangman</title>
-	<!-- Linking CSS to HTML -->
-	<link rel="stylesheet" type="text/css" href="assets/style.css">
-	<!--So it can be neatly viewed on phones-->
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<!-- linking jquery to html -->
-    <script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
-    <!-- Linking Javascript -->
-	<script type="text/javascript" src='assets/js.js'></script>
+	 <title>Music Hangman</title>
+	 <!-- Linking CSS to HTML -->
+	 <link rel="stylesheet" type="text/css" href="assets/style.css">
+	 <!--So it can be neatly viewed on phones-->
+	 <meta name="viewport" content="width=device-width, initial-scale=1">
+	 <!-- linking jquery to html -->
+   <script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
+   <!-- Linking Javascript -->
+	 <script type="text/javascript" src='assets/js.js'></script>
 </head>
 <body>
-<div class='container'>
-	<div>Wins: <span id="wins"></span></div>		
-	<div>Losses: <span id="losses"></span></div>			
-	<div>Guesses so far: <span id='GuessesSoFar'></span></div>	
-</div>
+
+
+  <span role="presentation" class="active"><a href="#">Music Hangman</a></span>
+  <span role="presentation" class="active"><a href="http://pyschic-game.herokuapp.com/">Psychic Game</a></span>
+  <span role="presentation" class="active"><a href="http://crystalgame.herokuapp.com/">Crystal Game</a></span>
+
+
+		<h1>Music Hangman</h1>
+
+	<div class='container'>
+		<div>Wins: <span id="wins"></span></div>		
+		<div>Losses: <span id="losses"></span></div>			
+		<div>Guesses so far: <span id='GuessesSoFar'></span></div>
+	</div>
+
+	<button id='submitButton'>Submit</button>
+
 </body>
 </html>

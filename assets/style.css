@@ -4,6 +4,25 @@ body{
 }
 
 .container{
-	font-size: 30px;
-	color:white;
+	font-size: 20px;
+	color: white;
+}
+
+h1{
+	color: white;
+	text-align: center;
+}
+
+#submitButton{
+	font-size: 25px;
+	color: white;
+	background-color: black;
+}
+
+.active{
+	padding-left: 15px;
+	padding-right: 15px;
+	font-size: 15px;
+	margin: 20px;
+	color: white;
 }
