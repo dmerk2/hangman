@@ -2,39 +2,41 @@
 <html>
 <head>
 	 <title>Music Hangman</title>
-	<!-- Linking CSS to HTML -->
-	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
-	<!--So it can be neatly viewed on phones-->
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<!-- linking jquery to html -->
-  <script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
-  <!-- Linking Javascript -->
-	<script type="text/javascript" src='assets/javascript/js.js'></script>
-	<!-- Latest compiled and minified CSS -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-	<!-- Latest compiled and minified JavaScript -->
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <!--So it can be neatly viewed on phones-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap CSS link -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
+    <!-- Linking to CSS -->
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
 </head>
 <body>
 
-<div class ='active'>	
-	<a href="http://music-trivia-game.herokuapp.com/">Music Trivia</a>
-	<a href="#">Music Hangman</a>
-	<a href="http://pyschic-game.herokuapp.com/">Psychic Game</a>
-	<a href="http://crystalgame.herokuapp.com/">Crystal Game</a>
-</div>
+	<!-- links to other games -->
+	<div class ='active'>	
+		<a href="http://music-trivia-game.herokuapp.com/">Music Trivia</a>
+		<a href="#">Music Hangman</a>
+		<a href="http://pyschic-game.herokuapp.com/">Psychic Game</a>
+		<a href="http://crystalgame.herokuapp.com/">Crystal Game</a>
+	</div>
 
 		<h1>Music Hangman</h1>
+
+    	<h3>Time Remaining: </h3>
+
+    	<h3 id="timer"></h3>
 
 	<div class='container'>
 		<div>Wins: <span id="wins"></span></div>		
 		<div>Losses: <span id="losses"></span></div>			
 		<div>Guesses so far: <span id='GuessesSoFar'></span></div>
+		<div>GuessesLeft: <span id="GuessesLeft"></span></div>
 	</div>
 
+		<button id='submitButton'>Submit</button>
 
-
-	<button id='submitButton'>Submit</button>
-
+	<!-- linking jquery to html -->
+    <script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
+	<!-- Linking to js.js -->
+    <script type="text/javascript" src="assets/javascript/js.js"></script>
 </body>
 </html>

@@ -1,9 +1,13 @@
-//alert('Guess the Word!')
+$(document).ready(function){
 
+alert('Guess the Word!')
+
+//variables
+var words = ['Sublime', 'ACDC', 'Rolling Stones', 'Green Day']
 var intervalId;
 var lettersCorrect = [];
 var lettersIncorrect = [];
-var timeRemaining = 60;
+var timeRemaining = 120 * 1000;
 var losses = 0;
 var wins = 0;
 var userGuess = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
@@ -16,13 +20,13 @@ document.onkeyup = function(event) {
 	var userGuess = String.fromCharCode(event.keyCode).toLowerCase();
 
 	//Start timer
-// 	setTimeout(timer, 60 * 1000);
-// 	intervalId = setInterval(showTimeLeft, 1000);
+	setTimeout(timer, 120 * 1000);
+	intervalId = setInterval(showTimeLeft, 1000);
 
-// };
+};
 
 	//if user guesses correctly and than there is an alert		
-	if (userGuess == guessesSoFar) {
+	if (userGuess === wins) {
 		alert("Winner");
 		wins = wins + 1;
 		$('wins').html = wins;
@@ -34,18 +38,21 @@ document.onkeyup = function(event) {
 	 	$('guessesSoFar').html = guessesSoFar;
 	 	$('userGuess').html += userGuess + ', ';
 	};
-
-		if (guessesLeft === 0) {
-			restart(timeRemaining)
+    
+    //when link is refreshed other links are still there
+    $(".refresh_link").click(function(){
+     window.location="#";
 	
 
 	//end time remaining
-// 	function showTimeLeft(){
-// 		timeRemaining--;
-// 		$('#timer').html(timeRemaining);
-// 	if (timeRemaining === 0){
-// 		clearInterval(intervalId);
+	function showTimeLeft(){
+		timeRemaining--;
+		$('#timer').html(timeRemaining);
+	if (timeRemaining === 0){
+		clearInterval(intervalId);
+	alert('Try again?')
 
-// 	};
+	};
+  };
 };
  	
