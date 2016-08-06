@@ -31,14 +31,14 @@ h1{
 	margin: auto;
 	font-size: 20px;
 	text-align: center;
-/*	color:white;*/
+	color:white;
 }
 
 .active:hover{
 	font-size: 30px;
-/*	color: white;*/
+	color: white;
 }
 
-/*.timer(
+.timer(
 	color:white;
-)*/
+)
