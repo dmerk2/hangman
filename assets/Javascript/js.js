@@ -1,267 +1,87 @@
-// var wins = '';
-// var losses = '';
-// var timeRemaining = 60;
-// var intervalID;
-// var correct = 0;
-// var incorrect = 0;
-// var guessesSoFar = 0;
-// var guessesLeft = 0;
+// create a variable (array) that will hold all the guesses (what was in $("#submit").val())
+// when guessesLeft hits zero, we stop the game. when the game stops. do an alert
+// if guessesLeft is zero and the user hits submit, do a startGame() (already done?)
+// createa  word list
+// reach: try to pick a random word, then turn it into an array of characters
+// (google: javascript turn string into array of chars)
 
-// $(document).ready(function(){
-// 	$('#submitButton').click(function(){
-// 		setTimeout(timer, 60 * 1000);
-// 		intervalID = setInterval(showTimeLeft, 1000);
-// 	});
-// });
-
-// function showTimeLeft() {
-// 	timeRemaining--;
-// 	$('#timer').html(timeRemaining);
-// 		if (timeRemaining === 0) {
-// 			clearInterval(intervalID);
-// 			alert('game over!')
-// 			reset()
-// 		};
-// };
-
-
-// $('#wins').html(wins);
-// $("#losses").html(losses);
-// $('#guessesLeft').html(guessesLeft);
-// $('#guessesSoFar').html(guessesSoFar);
-
-window.onload = function () {
-
-  var alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',
+var alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',
         'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's',
         't', 'u', 'v', 'w', 'x', 'y', 'z'];
-  
-  var categories;         // Array of topics
-  var chosenCategory;     // Selected catagory
-  var getHint ;          // Word getHint
-  var word ;              // Selected word
-  var guess ;             // Geuss
-  var geusses = [ ];      // Stored geusses
-  var lives ;             // Lives
-  var counter ;           // Count correct geusses
-  var space;              // Number of spaces in word '-'
-
-  // Get elements
-  var showLives = document.getElementById("mylives");
-  var showCatagory = document.getElementById("scatagory");
-  var getHint = document.getElementById("hint");
-  var showClue = document.getElementById("clue");
+var wins = 0;
+var losses = 0;
+var timeRemaining = 60;
+var intervalID;
+var correct = 0;
+var incorrect = 0;
+var guessesSoFar = 0;
+var guessesLeft = 0;
+var gameIsRunning = 0;
 
 
 
-  // create alphabet ul
-  var buttons = function () {
-    myButtons = document.getElementById('buttons');
-    letters = document.createElement('ul');
+//When submitButton is click timer will start
+//document.ready will wait until ALL files are fully downloaded and running
+//before it starts execution.  This means any functions in other files
+//any HTML that needs to load, and any functions in THIS file below here
+//will already be fully loaded before this starts to run
+// (aka. this is the LAST thing to happen)
+$(document).ready(function(){
 
-    for (var i = 0; i < alphabet.length; i++) {
-      letters.id = 'alphabet';
-      list = document.createElement('li');
-      list.id = 'letter';
-      list.innerHTML = alphabet[i];
-      check();
-      myButtons.appendChild(letters);
-      letters.appendChild(list);
-    }
-  }
-    
-  
-  // Select Catagory
-  var selectCat = function () {
-    if (chosenCategory === categories[0]) {
-      catagoryName.innerHTML = "The Chosen Category Is Premier League Football Teams";
-    } else if (chosenCategory === categories[1]) {
-      catagoryName.innerHTML = "The Chosen Category Is Films";
-    } else if (chosenCategory === categories[2]) {
-      catagoryName.innerHTML = "The Chosen Category Is Cities";
-    }
-  }
 
-  // Create geusses ul
-   result = function () {
-    wordHolder = document.getElementById('hold');
-    correct = document.createElement('ul');
 
-    for (var i = 0; i < word.length; i++) {
-      correct.setAttribute('id', 'my-word');
-      guess = document.createElement('li');
-      guess.setAttribute('class', 'guess');
-      if (word[i] === "-") {
-        guess.innerHTML = "-";
-        space = 1;
-      } else {
-        guess.innerHTML = "_";
-      }
+	$('#submitButton').click(function(){
+		if (gameIsRunning == 0) {
+			startGame();
+		}
 
-      geusses.push(guess);
-      wordHolder.appendChild(correct);
-      correct.appendChild(guess);
-    }
-  }
-  
-  // Show lives
-   comments = function () {
-    showLives.innerHTML = "You have " + lives + " lives";
-    if (lives < 1) {
-      showLives.innerHTML = "Game Over";
-    }
-    for (var i = 0; i < geusses.length; i++) {
-      if (counter + space === geusses.length) {
-        showLives.innerHTML = "You Win!";
-      }
-    }
-  }
+		guessesSoFar++;
+		guessesLeft--;
 
-      // Animate man
-  var animate = function () {
-    var drawMe = lives ;
-    drawArray[drawMe]();
-  }
+		
+		if (guessesLeft == 0) {
+			stopGame();
+		}
+		updateStats();
+	});
+});
 
-  
-   // Hangman
-  canvas =  function(){
+// ---- HELPER FUNCTIONS GO BELOW THIS LINE ----
 
-    myStickman = document.getElementById("stickman");
-    context = myStickman.getContext('2d');
-    context.beginPath();
-    context.strokeStyle = "#fff";
-    context.lineWidth = 2;
-  };
-  
-    head = function(){
-      myStickman = document.getElementById("stickman");
-      context = myStickman.getContext('2d');
-      context.beginPath();
-      context.arc(60, 25, 10, 0, Math.PI*2, true);
-      context.stroke();
-    }
-    
-  draw = function($pathFromx, $pathFromy, $pathTox, $pathToy) {
-    
-    context.moveTo($pathFromx, $pathFromy);
-    context.lineTo($pathTox, $pathToy);
-    context.stroke(); 
+function startGame(){			
+	gameIsRunning = 1;
+	setTimeout(timer, 60 * 1000);
+	intervalID = setInterval(showTimeLeft, 1000);
+
+	guessesLeft = 9;
+	guessesSoFar = 0;
+};
+
+function stopGame(){
+	clearTimeout(intervalID);
+	gameIsRunning = 0;
 }
 
-   frame1 = function() {
-     draw (0, 150, 150, 150);
-   };
-   
-   frame2 = function() {
-     draw (10, 0, 10, 600);
-   };
+//time counter going down by 1 second
+function showTimeLeft() {
+	timeRemaining--;
+	$('#timer').html(timeRemaining);
+	if (timeRemaining === 0) {
+			//when clock hits 0 alert game over pops up
+      	alert('game over!')
+	
+    	stopGame(); //instead, we should set gameIsRunning back to 0 and disable the timer
+	}
+};
+
+function updateStats() {
+	$('#wins').html(wins);
+	$("#losses").html(losses);
+	$('#guessesLeft').html(guessesLeft);
+	$('#guessesSoFar').html(guessesSoFar);
+
+};
+
+
   
-   frame3 = function() {
-     draw (0, 5, 70, 5);
-   };
-  
-   frame4 = function() {
-     draw (60, 5, 60, 15);
-   };
-  
-   torso = function() {
-     draw (60, 36, 60, 70);
-   };
-  
-   rightArm = function() {
-     draw (60, 46, 100, 50);
-   };
-  
-   leftArm = function() {
-     draw (60, 46, 20, 50);
-   };
-  
-   rightLeg = function() {
-     draw (60, 70, 100, 100);
-   };
-  
-   leftLeg = function() {
-     draw (60, 70, 20, 100);
-   };
-  
-  drawArray = [rightLeg, leftLeg, rightArm, leftArm,  torso,  head, frame4, frame3, frame2, frame1]; 
-
-
-  // OnClick Function
-   check = function () {
-    list.onclick = function () {
-      var geuss = (this.innerHTML);
-      this.setAttribute("class", "active");
-      this.onclick = null;
-      for (var i = 0; i < word.length; i++) {
-        if (word[i] === geuss) {
-          geusses[i].innerHTML = geuss;
-          counter += 1;
-        } 
-      }
-      var j = (word.indexOf(geuss));
-      if (j === -1) {
-        lives -= 1;
-        comments();
-        animate();
-      } else {
-        comments();
-      }
-    }
-  }
-  
-    
-  // Play
-  play = function () {
-    categories = [
-        ["everton", "liverpool", "swansea", "chelsea", "hull", "manchester-city", "newcastle-united"],
-        ["alien", "dirty-harry", "gladiator", "finding-nemo", "jaws"],
-        ["manchester", "milan", "madrid", "amsterdam", "prague"]
-    ];
-
-    chosenCategory = categories[Math.floor(Math.random() * categories.length)];
-    word = chosenCategory[Math.floor(Math.random() * chosenCategory.length)];
-    word = word.replace(/\s/g, "-");
-    console.log(word);
-    buttons();
-
-    geusses = [ ];
-    lives = 10;
-    counter = 0;
-    space = 0;
-    result();
-    comments();
-    selectCat();
-    canvas();
-  }
-
-  play();
-  
-  // Hint
-
-    hint.onclick = function() {
-
-      hints = [
-        ["Based in Mersyside", "Based in Mersyside", "First Welsh team to reach the Premier Leauge", "Owned by A russian Billionaire", "Once managed by Phil Brown", "2013 FA Cup runners up", "Gazza's first club"],
-        ["Science-Fiction horror film", "1971 American action film", "Historical drama", "Anamated Fish", "Giant great white shark"],
-        ["Northern city in the UK", "Home of AC and Inter", "Spanish capital", "Netherlands capital", "Czech Republic capital"]
-    ];
-
-    var catagoryIndex = categories.indexOf(chosenCategory);
-    var hintIndex = chosenCategory.indexOf(word);
-    showClue.innerHTML = "Clue: - " +  hints [catagoryIndex][hintIndex];
-  };
-
-   // Reset
-
-  document.getElementById('reset').onclick = function() {
-    correct.parentNode.removeChild(correct);
-    letters.parentNode.removeChild(letters);
-    showClue.innerHTML = "";
-    context.clearRect(0, 0, 400, 400);
-    play();
-  }
-}
-
 
