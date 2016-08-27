@@ -1,13 +1,19 @@
-// create a variable (array) that will hold all the guesses (what was in $("#submit").val())
-// when guessesLeft hits zero, we stop the game. when the game stops. do an alert
-// if guessesLeft is zero and the user hits submit, do a startGame() (already done?)
-// createa  word list
+// create a variable (array) that will hold all the guesses (what was in $("#submit").val())....FINISHED????
+// when guessesLeft hits zero, we stop the game. when the game stops. do an alert......FINISHED?????
+// if guessesLeft is zero and the user hits submit, do a startGame()...HOW????????????
+// create a  word list.... FINISHED????????
 // reach: try to pick a random word, then turn it into an array of characters
 // (google: javascript turn string into array of chars)
+
+
+
+//HOW DO I ADD 1 WHEN USER WINS??????
+//HOW DO I RESTART GAME AND TIMER WHETHER USER WINS OR LOSSES??????
 
 var alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',
         'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's',
         't', 'u', 'v', 'w', 'x', 'y', 'z'];
+var words = ["blink-182", "pink floyd", "rolling stones", "sublime", "red hot chilli peppers", "led zeppelin"];
 var wins = 0;
 var losses = 0;
 var timeRemaining = 60;
@@ -31,15 +37,21 @@ $(document).ready(function(){
 
 
 	$('#submitButton').click(function(){
-		if (gameIsRunning == 0) {
-			startGame();
+		var userGuess = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',
+        'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's',
+        't', 'u', 'v', 'w', 'x', 'y', 'z'];
+			if (gameIsRunning == 0) {
+				startGame();
 		}
 
 		guessesSoFar++;
 		guessesLeft--;
 
+
 		
 		if (guessesLeft == 0) {
+			//if user losses the Losses HTML will add 1
+			losses++;
 			stopGame();
 		}
 		updateStats();
@@ -60,14 +72,15 @@ function startGame(){
 function stopGame(){
 	clearTimeout(intervalID);
 	gameIsRunning = 0;
+
 }
 
 //time counter going down by 1 second
 function showTimeLeft() {
 	timeRemaining--;
 	$('#timer').html(timeRemaining);
-	if (timeRemaining === 0) {
-			//when clock hits 0 alert game over pops up
+	if (timeRemaining == 0) {
+		//when clock hits 0 alert game over pops up
       	alert('game over!')
 	
     	stopGame(); //instead, we should set gameIsRunning back to 0 and disable the timer
@@ -79,6 +92,11 @@ function updateStats() {
 	$("#losses").html(losses);
 	$('#guessesLeft').html(guessesLeft);
 	$('#guessesSoFar').html(guessesSoFar);
+		
+		//when guessesLeft is 0 game alerts game over!
+		if (guessesLeft == 0) {
+			alert("game over!")
+		}
 
 };
 
