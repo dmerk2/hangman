@@ -1,30 +1,18 @@
-// create a variable (array) that will hold all the guesses (what was in $("#submit").val())....FINISHED????
-// when guessesLeft hits zero, we stop the game. when the game stops. do an alert......FINISHED?????
-// if guessesLeft is zero and the user hits submit, do a startGame()...HOW????????????
-// create a  word list.... FINISHED????????
-// reach: try to pick a random word, then turn it into an array of characters
-// (google: javascript turn string into array of chars)
 
-
-
-//HOW DO I ADD 1 WHEN USER WINS??????
-//HOW DO I RESTART GAME AND TIMER WHETHER USER WINS OR LOSSES??????
-
-var alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',
-        'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's',
-        't', 'u', 'v', 'w', 'x', 'y', 'z'];
-var words = ["blink-182", "pink floyd", "rolling stones", "sublime", "red hot chilli peppers", "led zeppelin"];
+//ADDED EACH WORD IN SEPERATE ARRAY
+var words = [["pink floyd"], ["rolling stones"], ["sublime"], ["red hot chilli peppers"], ["led zeppelin"]];
+var alphabet = [];          //letters in the word we are trying to solve   ['t', 'i', 'l', 't']
+var userGuess = [];         //letters user has guessed                     ['i']
+var partialSolution = []; //fill it in as the user guesses correctly       ['_', '_', '_', '_']
 var wins = 0;
 var losses = 0;
-var timeRemaining = 60;
+var timeRemaining = 0;
 var intervalID;
 var correct = 0;
 var incorrect = 0;
 var guessesSoFar = 0;
 var guessesLeft = 0;
 var gameIsRunning = 0;
-
-
 
 //When submitButton is click timer will start
 //document.ready will wait until ALL files are fully downloaded and running
@@ -35,19 +23,26 @@ var gameIsRunning = 0;
 $(document).ready(function(){
 
 
-
 	$('#submitButton').click(function(){
-		var userGuess = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',
-        'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's',
-        't', 'u', 'v', 'w', 'x', 'y', 'z'];
-			if (gameIsRunning == 0) {
-				startGame();
+
+		if (gameIsRunning == 0) {
+			startGame();
 		}
 
 		guessesSoFar++;
 		guessesLeft--;
 
+		//if the letter the user guessed is in alphabet, we need to remove it from alphabet and put into partialSolution
 
+		if (userGuess == alphabet) {
+			partialSolution--
+		}
+
+
+		//if all the letters in alphaet are underscores
+		//	wins++
+		//  stopGame();
+		//}
 		
 		if (guessesLeft == 0) {
 			//if user losses the Losses HTML will add 1
@@ -58,15 +53,40 @@ $(document).ready(function(){
 	});
 });
 
+
+
+	//MAKING DASHES????
+	// for(var i = 0; i<length.words; i++) {
+
+	// }
+
+
 // ---- HELPER FUNCTIONS GO BELOW THIS LINE ----
 
 function startGame(){			
 	gameIsRunning = 1;
-	setTimeout(timer, 60 * 1000);
-	intervalID = setInterval(showTimeLeft, 1000);
 
+	//setTimeout(timer, 5 * 1000); //this runs "timer" after 5 seconds
+	timeRemaining = 10;
 	guessesLeft = 9;
 	guessesSoFar = 0;
+	userGuess = [];
+
+	var wordPicked = words[Math.floor(Math.random()*words.length)];
+	console.log("hint: picked " + wordPicked);
+	//NOW you use a for loop to put wordPicked into the alphabet array
+	
+	for(var i=0; i<wordPicked.length; i++)
+	{
+		alphabet[i] = wordPicked[i];
+		partialSolution[i] = '_';
+	}
+	console.log("Alphabet array: " + alphabet);
+	console.log("Partial solution: " + partialSolution);
+
+	intervalID = setInterval(showTimeLeft, 1000); //this runs "showTimeLeft" every 1 second
+
+
 };
 
 function stopGame(){
@@ -79,27 +99,24 @@ function stopGame(){
 function showTimeLeft() {
 	timeRemaining--;
 	$('#timer').html(timeRemaining);
-	if (timeRemaining == 0) {
-		//when clock hits 0 alert game over pops up
-      	alert('game over!')
 	
-    	stopGame(); //instead, we should set gameIsRunning back to 0 and disable the timer
+	if (timeRemaining == 0) {
+
+		stopGame();
+
+		losses++;
+		//when clock hits 0 alert game over pops up
+    	alert('game over!')
 	}
 };
 
 function updateStats() {
 	$('#wins').html(wins);
 	$("#losses").html(losses);
-	$('#guessesLeft').html(guessesLeft);
 	$('#guessesSoFar').html(guessesSoFar);
-		
-		//when guessesLeft is 0 game alerts game over!
-		if (guessesLeft == 0) {
-			alert("game over!")
-		}
-
+	$('#guessesLeft').html(guessesLeft);
+	
 };
-
 
   
 
